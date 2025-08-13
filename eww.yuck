@@ -1,0 +1,121 @@
+;;=============================================================================
+;; Archivo principal de Eww
+;;=============================================================================
+
+;; Variables de Eww (stateless data)
+;; notes_json: La lista de notas desde el script de Python. Se actualiza cada 5 segundos.
+(defpoll notes_json :interval "5s"
+                    :initial "[]"
+ `python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py list`)
+
+;; current_note_file: Guarda el nombre del archivo de la nota seleccionada.
+(defvar current_note_file "welcome.md")
+
+;; notes_content_pango: El contenido de la nota seleccionada, renderizado como Pango.
+;; Se actualiza cuando `current_note_file` cambia.
+(defpoll notes_content_pango
+  :interval "1s"
+  :initial "[]"
+  ;;"python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py get 'welcome.md'"  ;;PENDIENTE Q ESTO
+ "python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py"
+)
+
+
+;;(defvar current_note_content "python3 ~/.config/eww/scripts/notes_backend.py get '{current_note_file}'")
+
+ ;;---
+
+;;Widgets
+(defwidget notes_controls []
+  (box :orientation "h" :spacing 10 :class "notes-controls"
+    (button
+      
+      :class "control-button"
+      
+          :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\"""Nueva"
+    )
+   
+    (button 
+       :class "control-button"
+      :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
+      "Eliminar"
+    )
+
+
+    (button
+      
+      :class "control-button"
+      :onclick "kate ~/.config/eww/notes/${current_note_file}"  "Editar"
+     
+    )
+  )
+)
+;; Widget para mostrar la lista de notas
+(defwidget notes_list []
+  (box :orientation "v" :vexpand true 
+    (notes_controls) 
+
+    (scroll :vscroll true
+      (box :class "notes-list-box" :orientation "v"
+        (for note in notes_json
+          (button
+             :onclick "~/.config/eww/scripts/select_note.sh '${note.filename}'"
+            {note.title}
+          )
+        )
+      )
+    )
+  )
+)
+
+
+;; Widget para mostrar el contenido de una nota
+(defwidget note_content []
+  (scroll 
+    :vscroll true
+    :vexpand true
+    :class "note-content-box" 
+ 
+ (label
+      :class "note-content-label"
+      :markup true 
+      :wrap true
+      :text notes_content_pango
+      
+    )
+  )
+)
+
+  
+
+
+;; El widget principal que une todo
+(defwidget notes_widget []
+  (box
+    :class "main-notes-box"
+    :orientation "v"
+    :spacing 20
+    :vexpand true
+    :hexpand true
+    (notes_list)
+       (box :orientation "v" :vexpand true
+    (note_content)
+    )
+  )
+)
+
+;;---
+
+;; Ventana
+
+(defwindow notes_widget
+  :geometry (geometry
+    :x "2%"
+    :y "2%"
+    :width "30%" ; Aumenta el ancho
+    :height "60%" ; Aumenta la altura
+  )
+   :stacking "fg"
+  :monitor 0
+  :class "notes-eww"
+  (notes_widget))
