@@ -28,6 +28,8 @@
 ;;Widgets
 (defwidget notes_controls []
   (box :orientation "h" :spacing 10 :class "notes-controls"
+ 
+  ;;Botones principales de notas
     (button
       
       :class "control-button"
@@ -48,8 +50,12 @@
       :onclick "kate ~/.config/eww/notes/${current_note_file}"  "Editar"
      
     )
+
+     
   )
 )
+
+
 ;; Widget para mostrar la lista de notas
 (defwidget notes_list []
   (box :orientation "v" :vexpand true 
@@ -89,17 +95,29 @@
   
 
 
-;; El widget principal que une todo
+;; Widget principal con botón flotante
 (defwidget notes_widget []
-  (box
-    :class "main-notes-box"
-    :orientation "v"
-    :spacing 20
-    :vexpand true
-    :hexpand true
-    (notes_list)
-       (box :orientation "v" :vexpand true
-    (note_content)
+  (overlay
+    ;; Contenido principal
+    (box
+      :class "main-notes-box"
+      :orientation "v"
+      :spacing 20
+      :vexpand true
+      :hexpand true
+      (notes_list)
+      (box :orientation "v" :vexpand true
+        (note_content)
+      )
+    )
+
+    ;; Botón cerrar flotante
+    (box :orientation "h" :halign "end" :valign "start" :margin "5px"
+      (button
+        :class "close-button"
+        :onclick "eww close notes_window"
+        "❌"
+      )
     )
   )
 )

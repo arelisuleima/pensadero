@@ -80,3 +80,15 @@ window {
   color: #2e3440;
   line-height: 1.6;
 }
+/*Botón de cerrar*/
+
+.close-button {
+  background: rgba(255, 0, 0, 0.8);
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+.close-button:hover {
+  background: rgba(255, 0, 0, 1);
+}
