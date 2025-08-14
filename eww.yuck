@@ -108,7 +108,7 @@
 
 ;; Ventana
 
-(defwindow notes_widget
+(defwindow notes_window
   :geometry (geometry
     :x "2%"
     :y "2%"
