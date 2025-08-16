@@ -1,139 +1,117 @@
 ;;=============================================================================
-;; Archivo principal de Eww
+;; Archivo principal de Eww (versión reorganizada estilo imagen2)
 ;;=============================================================================
 
 ;; Variables de Eww (stateless data)
-;; notes_json: La lista de notas desde el script de Python. Se actualiza cada 5 segundos.
 (defpoll notes_json :interval "5s"
                     :initial "[]"
  `python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py list`)
 
-;; current_note_file: Guarda el nombre del archivo de la nota seleccionada.
 (defvar current_note_file "welcome.md")
 
-;; notes_content_pango: El contenido de la nota seleccionada, renderizado como Pango.
-;; Se actualiza cuando `current_note_file` cambia.
 (defpoll notes_content_pango
   :interval "1s"
   :initial "[]"
-  ;;"python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py get 'welcome.md'"  ;;PENDIENTE Q ESTO
- "python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py"
+  "python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py"
 )
 
+;;-----------------------------------------------------------------------------
+;; Widgets
+;;-----------------------------------------------------------------------------
 
-;;(defvar current_note_content "python3 ~/.config/eww/scripts/notes_backend.py get '{current_note_file}'")
-
- ;;---
-
-;;Widgets
-(defwidget notes_controls []
-  (box :orientation "h" :spacing 10 :class "notes-controls"
- 
-  ;;Botones principales de notas
-    (button
-      
-      :class "control-button"
-      
-          :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\"""Nueva"
-    )
-   
-    (button 
-       :class "control-button"
-      :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
-      "Eliminar"
-    )
-
-
-    (button
-      
-      :class "control-button"
-      :onclick "kate ~/.config/eww/notes/${current_note_file}"  "Editar"
-     
-    )
-
-     
+;; Barra superior (título + botón cerrar)
+(defwidget notes_header []
+  (box :orientation "h" :halign "fill" :valign "start" 
+       :space-evenly false :spacing 5 :class "notes-header"
+       ;; título pegado a la izquierda
+       (label :text "📝 Pensieve - Notas" 
+              :class "notes-title"
+              :halign "start")
+       ;; botón pegado a la derecha
+       (button :class "close-button" 
+               :onclick "eww close notes_window" 
+               "❌")
   )
 )
 
+;; Botones principales
+(defwidget notes_controls []
+  (box :orientation "v" :spacing 0 :class "notes-controls"
+    (button :class "control-button"
+            :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
+            "Nueva")
+    (button :class "control-button"
+            :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
+            "Eliminar")
+    (button :class "control-button"
+            :onclick "kate ~/.config/eww/notes/${current_note_file}"
+            "Editar")
+  )
+)
 
-;; Widget para mostrar la lista de notas
+;; Lista de notas
 (defwidget notes_list []
-  (box :orientation "v" :vexpand true 
-    (notes_controls) 
-
-    (scroll :vscroll true
-      (box :class "notes-list-box" :orientation "v"
-        (for note in notes_json
-          (button
-             :onclick "~/.config/eww/scripts/select_note.sh '${note.filename}'"
-            {note.title}
-          )
+  (scroll :vscroll true :class "notes-list-scroll"
+    (box :orientation "v" :class "notes-list-box"
+      (for note in notes_json
+        (button
+           :class "note-item"
+           :onclick "~/.config/eww/scripts/select_note.sh '${note.filename}'"
+           {note.title}
         )
       )
     )
   )
 )
 
-
-;; Widget para mostrar el contenido de una nota
+;; Contenido de la nota
 (defwidget note_content []
-  (scroll 
-    :vscroll true
-    :vexpand true
-    :class "note-content-box" 
- 
- (label
-      :class "note-content-label"
-      :markup true 
-      :wrap true
-      :text notes_content_pango
-      
-    )
+  (scroll :vscroll true :hexpand true :vexpand true :class "note-content-box"
+    (label :class "note-content-label"
+           :markup true 
+           :wrap true
+           :text notes_content_pango)
   )
 )
 
-  
+;;-----------------------------------------------------------------------------
+;; Widget principal
+;;-----------------------------------------------------------------------------
 
-
-;; Widget principal con botón flotante
 (defwidget notes_widget []
-  (overlay
-    ;; Contenido principal
-    (box
-      :class "main-notes-box"
-      :orientation "v"
-      :spacing 20
-      :vexpand true
-      :hexpand true
-      (notes_list)
-      (box :orientation "v" :vexpand true
-        (note_content)
-      )
-    )
+  (box :orientation "v" :class "main-notes-box"   :spacing 0 
+    ;; Barra superior
+   
 
-    ;; Botón cerrar flotante
-    (box :orientation "h" :halign "end" :valign "start" :margin "5px"
-      (button
-        :class "close-button"
-        :onclick "eww close notes_window"
-        "❌"
+    ;; Cuerpo dividido en 2 columnas
+    (box :orientation "h" :spacing 0 :vexpand true :hexpand true
+      ;; Columna izquierda: controles y lista
+       (notes_header)
+       
+      (box :orientation "v" :class "sidebar"  :width "30%"
+       (notes_controls)
+        (label :text "My Notes" :class "sidebar-title")
+        (notes_list :vexpand true)
       )
+
+      ;; Columna derecha: contenido de la nota
+      (note_content)
     )
   )
 )
 
-;;---
-
+;;-----------------------------------------------------------------------------
 ;; Ventana
+;;-----------------------------------------------------------------------------
 
 (defwindow notes_window
   :geometry (geometry
-    :x "2%"
-    :y "2%"
-    :width "30%" ; Aumenta el ancho
-    :height "60%" ; Aumenta la altura
+    :x "5%"
+    :y "5%"
+    :width "60%"
+    :height "70%"
   )
-   :stacking "fg"
+  :stacking "fg"
   :monitor 0
   :class "notes-eww"
   (notes_widget))
