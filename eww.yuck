@@ -21,31 +21,40 @@
 
 ;; Barra superior (título + botón cerrar)
 (defwidget notes_header []
-  (box :orientation "h" :halign "fill" :valign "start" 
-       :space-evenly false :spacing 5 :class "notes-header"
+  (box :orientation "h" 
+        :valign "start" 
+        :vexpand false  
+         
+        :spacing 1000
+        :class "notes-header"
+        :space-evenly false 
        ;; título pegado a la izquierda
        (label :text "📝 Pensieve - Notas" 
               :class "notes-title"
-              :halign "start")
+          )
        ;; botón pegado a la derecha
        (button :class "close-button" 
-               :onclick "eww close notes_window" 
-               "❌")
+               :onclick "eww close notes_window" "❌"
+               
+              )
   )
 )
 
 ;; Botones principales
 (defwidget notes_controls []
-  (box :orientation "v" :spacing 0 :class "notes-controls"
+  (box :orientation "v" :spacing 0  :class "notes-controls"
     (button :class "control-button"
             :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
             "Nueva")
+            
     (button :class "control-button"
             :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
             "Eliminar")
+             
     (button :class "control-button"
             :onclick "kate ~/.config/eww/notes/${current_note_file}"
             "Editar")
+             
   )
 )
 
@@ -79,19 +88,27 @@
 ;;-----------------------------------------------------------------------------
 
 (defwidget notes_widget []
-  (box :orientation "v" :class "main-notes-box"   :spacing 0 
+  (box 
+     
+    :class "main-notes-box"   
+ 
+     :orientation "vertical"
+        :hexpand false
+            :valign "fill"
+            :vexpand true
+            :space-evenly false
+            
     ;; Barra superior
-   
-
+   (notes_header)
     ;; Cuerpo dividido en 2 columnas
     (box :orientation "h" :spacing 0 :vexpand true :hexpand true
       ;; Columna izquierda: controles y lista
-       (notes_header)
+       
        
       (box :orientation "v" :class "sidebar"  :width "30%"
        (notes_controls)
-        (label :text "My Notes" :class "sidebar-title")
-        (notes_list :vexpand true)
+        (label :text "Mis notas" :class "sidebar-title")
+        (notes_list)
       )
 
       ;; Columna derecha: contenido de la nota
