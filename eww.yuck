@@ -2,6 +2,7 @@
 ;; Archivo principal de Eww (versión reorganizada estilo imagen2)
 ;;=============================================================================
 
+
 ;; Variables de Eww (stateless data)
 (defpoll notes_json :interval "5s"
                     :initial "[]"
@@ -105,7 +106,7 @@
       ;; Columna izquierda: controles y lista
        
        
-      (box :orientation "v" :class "sidebar"  :width "30%"
+      (box :orientation "v" :class "sidebar"  :width 300
        (notes_controls)
         (label :text "Mis notas" :class "sidebar-title")
         (notes_list)
@@ -125,8 +126,8 @@
   :geometry (geometry
     :x "5%"
     :y "5%"
-    :width "60%"
-    :height "70%"
+    :width 600
+    :height 700
   )
   :stacking "fg"
   :monitor 0
