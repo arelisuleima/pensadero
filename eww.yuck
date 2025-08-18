@@ -26,25 +26,29 @@
         :valign "start" 
         :vexpand false  
          
-        :spacing 1000
+        :spacing 600
         :class "notes-header"
         :space-evenly false 
+        
+
        ;; título pegado a la izquierda
        (label :text "📝 Pensieve - Notas" 
               :class "notes-title"
+               
           )
        ;; botón pegado a la derecha
        (button :class "close-button" 
-               :onclick "eww close notes_window" "❌"
-               
+               :onclick "eww close notes_window" 
+               "X"
               )
   )
 )
 
 ;; Botones principales
 (defwidget notes_controls []
-  (box :orientation "v" :spacing 0  :class "notes-controls"
+  (box :orientation "v" :spacing 5  :class "notes-controls"
     (button :class "control-button"
+    
             :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
             "Nueva")
             
@@ -62,7 +66,7 @@
 ;; Lista de notas
 (defwidget notes_list []
   (scroll :vscroll true :class "notes-list-scroll"
-    (box :orientation "v" :class "notes-list-box"
+    (box :orientation "v" :class "notes-list-box" :spacing 5
       (for note in notes_json
         (button
            :class "note-item"
@@ -76,7 +80,7 @@
 
 ;; Contenido de la nota
 (defwidget note_content []
-  (scroll :vscroll true :hexpand true :vexpand true :class "note-content-box"
+  (scroll :vscroll true :hexpand true :vexpand true :class "note-content-box" 
     (label :class "note-content-label"
            :markup true 
            :wrap true
@@ -90,31 +94,31 @@
 
 (defwidget notes_widget []
   (box 
-     
-    :class "main-notes-box"   
- 
-     :orientation "vertical"
-        :hexpand false
-            :valign "fill"
-            :vexpand true
-            :space-evenly false
+    :class "main-notes-box"  
+    :orientation "vertical"
+    :hexpand true
+    :valign "fill"
+    :vexpand true
+    :space-evenly false
             
     ;; Barra superior
    (notes_header)
     ;; Cuerpo dividido en 2 columnas
-    (box :orientation "h" :spacing 0 :vexpand true :hexpand true
+    (box :orientation "h"  :spacing 5 :vexpand true  :halign "fill" 
       ;; Columna izquierda: controles y lista
        
-       
-      (box :orientation "v" :class "sidebar"  :width 300
+      (box :orientation "v" :class "sidebar"  :halign "start"  :width 300 :spacing 0
        (notes_controls)
-        (label :text "Mis notas" :class "sidebar-title")
-        (notes_list)
+       
+          (label :text "Mis notas"  :class "sidebar-title" )
+          (notes_list)
+        
       )
-
+     
       ;; Columna derecha: contenido de la nota
-      (note_content)
-    )
+      (note_content :hexpand true :vexpand true )
+    
+  )
   )
 )
 
@@ -126,7 +130,7 @@
   :geometry (geometry
     :x "5%"
     :y "5%"
-    :width 600
+    :width 500
     :height 700
   )
   :stacking "fg"
