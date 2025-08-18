@@ -1,71 +1,95 @@
-
 /* Paleta de colores ORIGINAL TUYA */
 /* Estructura básica (similar a la tuya) */
 * {
-  all: unset; }
+  all: unset;
+}
 
 window {
   background-color: rgba(0, 0, 0, 0);
-  color: #2e3440; }
+  color: #2e3440;
+}
+/*Barra encabezado*/
+.header-bar {
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  background-color: #5b61b2;
 
+  border-radius: 6px;
+  padding: 5px 6px;
+}
+
+/*Widget principal en general*/
 .main-notes-box {
-  
-  background-color:  #EEE2DF;
+  background-color: #eee2df;
   min-width: 700px;
   min-height: 400px;
   border-radius: 16px;
   padding: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 
-/* Panel izquierdo (conservando tu estructura) */
-.notes-list-box {
- 
-  padding: 15px;
-  border-radius: 10px; }
- 
+/*Nota por individual*/
 .note-item {
-  color: white;
-  border-radius: 10px; 
-  background-color:  #276fc7
+  color: black;
+  border-radius: 10px;
+  background-color: #dec1db;
 }
-.note-item:hover{
-   background-color: #6DA0E1
+.note-item:hover {
+  background-color: #c798c2;
 }
-.note-button {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 12px;
-  margin-bottom: 8px;
-  border-radius: 8px; }
-  .note-button:hover {
-    background-color: rgba(255, 255, 255, 0.3); }
 
-.note-button-selected {
-  background-color: #E36888;
-  font-weight: bold; }
-
-/* Panel derecho (como el tuyo pero con colores) */
+/*Contenedor de la nota*/
 .note-content-box {
   background-color: white;
   padding: 25px;
-  border-radius: 10px; }
+  border-radius: 10px;
+}
 
 /* Controles (tus estilos con la paleta) */
 .notes-controls {
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+}
 
+/*Botones de control de nota*/
 .control-button {
-  background-color: #DEC1DB;
+  background-color: #c1d0de;
   color: rgb(58, 57, 57);
-  padding: 8px 12px;
-  border-radius: 6px; }
-  .control-button:hover {
-    background-color: #c798c2; }
+  padding: 4px 12px;
+  min-height: 25px;
+  border-radius: 6px;
+}
+.control-button:hover {
+  background-color: #98aec7;
+}
 
-/* Texto */
+/*Boton de crear nueva nota*/
+.new-button {
+  background-color: #c1dec3;
+  color: rgb(58, 57, 57);
+  padding: 4px 12px;
+  min-height: 25px;
+  border-radius: 6px;
+}
+.new-button:hover {
+  background-color: #98c798;
+}
+
+/*Boton de borrar  nota*/
+.delete-button {
+  background-color: #dec1c1;
+  color: rgb(58, 57, 57);
+  padding: 4px 12px;
+  min-height: 25px;
+  border-radius: 6px;
+}
+.delete-button:hover {
+  background-color: #c79898;
+}
+/*Contenido de la nota*/
 .note-content-label {
   color: #2e3440;
-   }
+}
 
 /*Botón de cerrar*/
 .close-button {
@@ -73,25 +97,29 @@ window {
   color: rgb(34, 24, 24);
   border-radius: 30%;
   padding: 2px 6px;
-  font-size: 14px; }
+  font-size: 14px;
+}
 
 .close-button:hover {
-  background: rgb(247, 77, 77); }
+  background: rgb(247, 77, 77);
+}
 
-  /* Título de la lista de notas */
 .sidebar-title {
   color: #555555;
   font-size: 1.1em;
   font-weight: bold;
   padding: 0; /* Esto elimina el espacio interno */
-  margin: 0;  /* Esto elimina el espacio externo */
+  margin: 0; /* Esto elimina el espacio externo */
 }
 
-.notes-title {
-   color: #555555;
-  font-size: 1.1em;
+/*Lista de notas*/
+.notes-list-scroll {
+  background-color: #f5f5f5; /* Un color de fondo muy claro */
+  border-radius: 10px;
+}
+
+.note-title {
   font-weight: bold;
-  padding: 0; /* Esto elimina el espacio interno */
-  margin: 0;  /* Esto elimina el espacio externo */
+  font-size: 1.5em; /* Opcional: para que se vea más grande */
 }
 /*# sourceMappingURL=eww.css.map */

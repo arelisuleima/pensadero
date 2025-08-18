@@ -25,15 +25,14 @@
   (box :orientation "h" 
         :valign "start" 
         :vexpand false  
-         
+        :class "header-bar" 
         :spacing 600
-        :class "notes-header"
         :space-evenly false 
         
 
        ;; título pegado a la izquierda
-       (label :text "📝 Pensieve - Notas" 
-              :class "notes-title"
+       (label :text "🔮 Pensieve " 
+             
                
           )
        ;; botón pegado a la derecha
@@ -46,27 +45,29 @@
 
 ;; Botones principales
 (defwidget notes_controls []
-  (box :orientation "v" :spacing 5  :class "notes-controls"
-    (button :class "control-button"
+  (box :orientation "h" :spacing 5 :class "notes-controls"  :height 60
+    (button :class "new-button"
     
             :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
             "Nueva")
             
-    (button :class "control-button"
+     (button :class "control-button"
+            :onclick "kate ~/.config/eww/notes/${current_note_file}"
+            "Editar")
+
+    (button :class "delete-button"
             :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
             "Eliminar")
              
-    (button :class "control-button"
-            :onclick "kate ~/.config/eww/notes/${current_note_file}"
-            "Editar")
+   
              
   )
 )
 
 ;; Lista de notas
 (defwidget notes_list []
-  (scroll :vscroll true :class "notes-list-scroll"
-    (box :orientation "v" :class "notes-list-box" :spacing 5
+  ;;(scroll :vscroll true 
+    (box :orientation "v"  :spacing 5 
       (for note in notes_json
         (button
            :class "note-item"
@@ -75,7 +76,7 @@
         )
       )
     )
-  )
+  ;;)
 )
 
 ;; Contenido de la nota
@@ -84,7 +85,8 @@
     (label :class "note-content-label"
            :markup true 
            :wrap true
-           :text notes_content_pango)
+           :text notes_content_pango
+          )
   )
 )
 
@@ -96,29 +98,22 @@
   (box 
     :class "main-notes-box"  
     :orientation "vertical"
-    :hexpand true
     :valign "fill"
-    :vexpand true
     :space-evenly false
+    :spacing 5
             
     ;; Barra superior
-   (notes_header)
+  (notes_header)
+  (notes_controls)
     ;; Cuerpo dividido en 2 columnas
-    (box :orientation "h"  :spacing 5 :vexpand true  :halign "fill" 
-      ;; Columna izquierda: controles y lista
-       
-      (box :orientation "v" :class "sidebar"  :halign "start"  :width 300 :spacing 0
-       (notes_controls)
-       
-          (label :text "Mis notas"  :class "sidebar-title" )
-          (notes_list)
-        
-      )
-     
+    (box :orientation "h"  :spacing 10  :vexpand true 
+      ;; Columna izquierda: lista
+      (notes_list :width 10)
+      (box :orientation "v"   :spacing 5    :vexpand true  
       ;; Columna derecha: contenido de la nota
-      (note_content :hexpand true :vexpand true )
-    
-  )
+      (note_content )
+      )
+    )
   )
 )
 
@@ -135,5 +130,5 @@
   )
   :stacking "fg"
   :monitor 0
-  :class "notes-eww"
+  
   (notes_widget))

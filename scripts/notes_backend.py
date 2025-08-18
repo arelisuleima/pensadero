@@ -16,8 +16,19 @@ def get_notes_list():
         notes_files = [f for f in os.listdir(NOTES_DIR) if f.endswith('.md')]
         notes_list = []
         for file in notes_files:
+            filepath = os.path.join(NOTES_DIR, file)
+            title = os.path.splitext(file)[0].replace('-', ' ').title() # Título por defecto
+            
+            # Intentar leer la primera línea para encontrar el título con #
+            with open(filepath, 'r', encoding='utf-8') as f:
+                for line in f:
+                    if line.strip().startswith('#'):
+                        # Quita el #, espacios y saltos de línea
+                        title = line.strip().lstrip('#').strip()
+                        break # Ya que encontramos el título, salimos del bucle
+            
             notes_list.append({
-                "title": os.path.splitext(file)[0].replace('-', ' ').title(),
+                "title": title,
                 "filename": file
             })
         print(json.dumps(notes_list))
@@ -45,9 +56,9 @@ def get_note_content(filename=None):
 
             for line in content_lines:
                 if line.startswith('# '):
-                    formatted_lines.append(f"{line[2:].strip()}")
+                    formatted_lines.append(f"{line[2:].strip()}\n")
                 elif line.startswith('## '):
-                    formatted_lines.append(f"{line[3:].strip()}")
+                    formatted_lines.append(f"{line[3:].strip()}\n")
                 else:
                     formatted_lines.append(line)
 
