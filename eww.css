@@ -13,15 +13,15 @@ window {
   color: white;
   font-size: 1.1em;
   font-weight: bold;
-  background-color: #5b61b2;
+  background:linear-gradient(to right,#054071 ,  #1bb9db  );
 
   border-radius: 6px;
   padding: 5px 6px;
 }
 
-/*Widget principal en general*/
+/*Widget principal en general eee2df*/
 .main-notes-box {
-  background-color: #eee2df;
+  background-color: #ceecf1;
   min-width: 700px;
   min-height: 400px;
   border-radius: 16px;
@@ -33,17 +33,18 @@ window {
 .note-item {
   color: black;
   border-radius: 10px;
-  background-color: #dec1db;
+  background-color: #8cd5e6;
 }
 .note-item:hover {
-  background-color: #c798c2;
+  background-color: #54c0d8;
 }
 
 /*Contenedor de la nota*/
 .note-content-box {
-  background-color: white;
+  background-color: #fce1aa;
   padding: 25px;
   border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Controles (tus estilos con la paleta) */
@@ -58,9 +59,11 @@ window {
   padding: 4px 12px;
   min-height: 25px;
   border-radius: 6px;
+  
 }
 .control-button:hover {
   background-color: #98aec7;
+ 
 }
 
 /*Boton de crear nueva nota*/
@@ -73,6 +76,7 @@ window {
 }
 .new-button:hover {
   background-color: #98c798;
+  
 }
 
 /*Boton de borrar  nota*/
@@ -85,15 +89,18 @@ window {
 }
 .delete-button:hover {
   background-color: #c79898;
+  
 }
 /*Contenido de la nota*/
 .note-content-label {
   color: #2e3440;
+  background-color:  #fce1aa ;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /*Botón de cerrar*/
 .close-button {
-  background: rgba(238, 130, 130, 0.8);
+  background: rgba(238, 113, 113, 0.8);
   color: rgb(34, 24, 24);
   border-radius: 30%;
   padding: 2px 6px;
@@ -112,14 +119,21 @@ window {
   margin: 0; /* Esto elimina el espacio externo */
 }
 
-/*Lista de notas*/
-.notes-list-scroll {
-  background-color: #f5f5f5; /* Un color de fondo muy claro */
-  border-radius: 10px;
-}
-
 .note-title {
   font-weight: bold;
   font-size: 1.5em; /* Opcional: para que se vea más grande */
 }
+
+.notes-list {
+  min-width: 180px;  /* ancho fijo mínimo */
+  
+}
+.notes-scroll {
+ background-color: #021f49;
+  padding: 25px;
+  border-radius: 10px;
+ 
+}
+
+
 /*# sourceMappingURL=eww.css.map */

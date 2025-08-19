@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Name=Pensieve
+Name=Pensadero
 Comment=Widget de notas en EWW
 Exec=sh -c 'eww open notes_window'
 Icon=~/.config/eww/logos/pensieve-logo-rmv.png

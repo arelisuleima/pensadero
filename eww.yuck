@@ -26,12 +26,12 @@
         :valign "start" 
         :vexpand false  
         :class "header-bar" 
-        :spacing 600
+        :spacing 555
         :space-evenly false 
         
 
        ;; título pegado a la izquierda
-       (label :text "🔮 Pensieve " 
+       (label :text "🔮 Pensadero " 
              
                
           )
@@ -45,7 +45,7 @@
 
 ;; Botones principales
 (defwidget notes_controls []
-  (box :orientation "h" :spacing 5 :class "notes-controls"  :height 60
+  (box :orientation "h" :spacing 5 :class "notes-controls"  :height 60 
     (button :class "new-button"
     
             :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
@@ -66,8 +66,8 @@
 
 ;; Lista de notas
 (defwidget notes_list []
-  ;;(scroll :vscroll true 
-    (box :orientation "v"  :spacing 5 
+  ;;(scroll :vscroll true :class "notes-scroll" 
+    (box :orientation "v"  :spacing 5   :class "notes-list"  :height 200  :valign "start" :halign "start" 
       (for note in notes_json
         (button
            :class "note-item"
@@ -81,7 +81,7 @@
 
 ;; Contenido de la nota
 (defwidget note_content []
-  (scroll :vscroll true :hexpand true :vexpand true :class "note-content-box" 
+  (scroll :vscroll true :class "note-content-box" :width 500
     (label :class "note-content-label"
            :markup true 
            :wrap true
@@ -100,19 +100,16 @@
     :orientation "vertical"
     :valign "fill"
     :space-evenly false
-    :spacing 5
-            
+    :spacing 5       
     ;; Barra superior
   (notes_header)
   (notes_controls)
     ;; Cuerpo dividido en 2 columnas
-    (box :orientation "h"  :spacing 10  :vexpand true 
-      ;; Columna izquierda: lista
-      (notes_list :width 10)
-      (box :orientation "v"   :spacing 5    :vexpand true  
-      ;; Columna derecha: contenido de la nota
+    (box :orientation "h"  :spacing 20  :vexpand true  :space-evenly false 
+      
+      (notes_list )
       (note_content )
-      )
+      
     )
   )
 )
@@ -125,7 +122,7 @@
   :geometry (geometry
     :x "5%"
     :y "5%"
-    :width 500
+   
     :height 700
   )
   :stacking "fg"
