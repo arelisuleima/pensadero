@@ -1,4 +1,4 @@
-# Pensieve
+# Pensadero
 
 <img src="logos/pensieve-logo-rmv.png" alt="Logo" width="100"/>
 
