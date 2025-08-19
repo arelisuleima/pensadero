@@ -31,8 +31,8 @@
         
 
        ;; título pegado a la izquierda
-       (label :text "🔮 Pensadero " 
-             )
+  (label :text "📒 Pensadero" :class "titulo")
+
        ;; botón pegado a la derecha
        (button :class "close-button" 
                :onclick "eww close notes_window" 
@@ -66,13 +66,15 @@
 (defwidget notes_list []
   (scroll :vscroll true :class "notes-scroll" :width 230 
   
-    (box :orientation "v"  :spacing 5   :class "notes-list"    :valign "start"  
-    (label :text "Mis notas" :class "header-bar")
+    (box :orientation "v"  :spacing 5   :class "notes-list"  :valign "start"   
+    (label :text "Mis notas" :class "header-bar" :wrap true )
       (for note in notes_json
         (button
            :class "note-item"
+           :vexpand false 
            :onclick "~/.config/eww/scripts/select_note.sh '${note.filename}'"
            {note.title}
+           
         )
       )
     )

@@ -5,6 +5,7 @@ import sys
 import json
 import uuid
 
+
 # Usamos XDG_CONFIG_HOME para la portabilidad
 XDG_CONFIG_HOME = os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
 NOTES_DIR = os.path.join(XDG_CONFIG_HOME, 'eww/notes')
@@ -17,26 +18,35 @@ def get_notes_list():
         notes_list = []
         for file in notes_files:
             filepath = os.path.join(NOTES_DIR, file)
-            title = os.path.splitext(file)[0].replace('-', ' ').title() # Título por defecto
+            # Título por defecto
+            title = os.path.splitext(file)[0].replace('-', ' ').title()
             
             # Intentar leer la primera línea para encontrar el título con #
             with open(filepath, 'r', encoding='utf-8') as f:
-                for line in f:
-                    if line.strip().startswith('#'):
-                        # Quita el #, espacios y saltos de línea
-                        title = line.strip().lstrip('#').strip()
-                        break # Ya que encontramos el título, salimos del bucle
+                first_line = f.readline().strip()
+                if first_line.startswith('#'):
+                    # Quita el #, espacios y saltos de línea
+                    title = first_line.lstrip('#').strip()
+            
+            # Aplica la lógica de truncamiento al título
+            if len(title) > 15:
+                display_title = title[:15] + "..."
+            else:
+                display_title = title
             
             notes_list.append({
-                "title": title,
-                "filename": file
+                "title": display_title,  # Usa el título truncado para mostrar
+                "filename": file         # Usa el nombre de archivo completo para el onclick
             })
+            
         print(json.dumps(notes_list))
+        
     except FileNotFoundError:
         print(json.dumps([]))
 
 def get_note_content(filename=None):
     """Retorna el contenido de una nota como texto con formato Pango."""
+    
     # Si no hay filename por argumento, lee el archivo current_note_file.txt
     if not filename:
         try:
@@ -44,29 +54,37 @@ def get_note_content(filename=None):
                 filename = f.read().strip()
         except FileNotFoundError:
             filename = "welcome.md"  # fallback
+    
+    # Definir el filepath aquí para usarlo en la excepción
+    filepath = os.path.join(NOTES_DIR, filename)
 
     try:
-        filepath = filename if os.path.isabs(filename) else os.path.join(NOTES_DIR, filename)
+        # Intenta leer el archivo
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
             # Convertimos Markdown a símbolos y respetamos saltos de línea en Pango
-            content = content.replace('[ ]', '☐').replace('[x]', '✅')
+            content = content.replace('[ ]', '☐').replace('-', '●')
             content_lines = content.splitlines()
             formatted_lines = []
 
             for line in content_lines:
                 if line.startswith('# '):
+                    # Formato para el título principal
                     formatted_lines.append(f"{line[2:].strip()}\n")
-                elif line.startswith('## '):
-                    formatted_lines.append(f"{line[3:].strip()}\n")
                 else:
                     formatted_lines.append(line)
 
-            title = os.path.splitext(filename)[0].replace('-', ' ').title()
             print(f"\n".join(formatted_lines))
+
     except (FileNotFoundError, IOError):
-        #Muestra el mensaje cuando la nota se elimina
-        print(f' La nota "{filename}" fue eliminada')
+        # Esta parte se ejecuta si el archivo de la nota no existe
+        
+        # 1. Guarda el nombre de la nota de bienvenida en el archivo de estado
+        with open(CURRENT_FILE_PATH, 'w', encoding='utf-8') as f:
+            f.write("welcome.md")
+        
+        # 2. Llama a la función de nuevo para mostrar la nota de bienvenida
+        get_note_content(filename="welcome.md")
 
 def save_note(filename, content):
     """Guarda o actualiza una nota."""
@@ -80,7 +98,7 @@ def new_note():
     new_name = f"nota-{uuid.uuid4().hex[:6]}.md"
     filepath = os.path.join(NOTES_DIR, new_name)
     with open(filepath, 'w', encoding='utf-8') as f:
-        f.write("# 🗒️ Nota nueva \n\nSelecciona → Editar ← para añadir contenido a esta nota.")
+        f.write("# 🗒️ Nota nueva \nSelecciona → Editar ← para añadir contenido a esta nota.")
     print(f"{new_name}")
 
 def delete_note(filename):

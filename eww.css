@@ -21,12 +21,12 @@ window {
 
 /*Widget principal en general eee2df*/
 .main-notes-box {
-  background-color: #ceecf1;
-  min-width: 700px;
-  min-height: 400px;
+  background-color: #e4eafa;
+
   border-radius: 16px;
   padding: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  border-color: #2e3440;
 }
 
 /*Nota por individual*/
@@ -34,6 +34,8 @@ window {
   color: black;
   border-radius: 6px;
   background-color: #8cd5e6;
+
+
 }
 .note-item:hover {
   background-color: #1bb9db;
