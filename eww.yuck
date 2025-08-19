@@ -32,9 +32,7 @@
 
        ;; título pegado a la izquierda
        (label :text "🔮 Pensadero " 
-             
-               
-          )
+             )
        ;; botón pegado a la derecha
        (button :class "close-button" 
                :onclick "eww close notes_window" 
@@ -45,19 +43,19 @@
 
 ;; Botones principales
 (defwidget notes_controls []
-  (box :orientation "h" :spacing 5 :class "notes-controls"  :height 60 
-    (button :class "new-button"
+  (box :orientation "h" :spacing 20 :class "notes-controls"  :height 60 
+    (button :class "control-button"
     
             :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
-            "Nueva")
+            " ➕ Nueva")
             
      (button :class "control-button"
             :onclick "kate ~/.config/eww/notes/${current_note_file}"
-            "Editar")
+            " ✎ Editar")
 
-    (button :class "delete-button"
+    (button :class "control-button"
             :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
-            "Eliminar")
+            " ➖ Eliminar")
              
    
              
@@ -66,8 +64,10 @@
 
 ;; Lista de notas
 (defwidget notes_list []
-  ;;(scroll :vscroll true :class "notes-scroll" 
-    (box :orientation "v"  :spacing 5   :class "notes-list"  :height 200  :valign "start" :halign "start" 
+  (scroll :vscroll true :class "notes-scroll" :width 230 
+  
+    (box :orientation "v"  :spacing 5   :class "notes-list"    :valign "start"  
+    (label :text "Mis notas" :class "header-bar")
       (for note in notes_json
         (button
            :class "note-item"
@@ -76,12 +76,12 @@
         )
       )
     )
-  ;;)
+  )
 )
 
 ;; Contenido de la nota
 (defwidget note_content []
-  (scroll :vscroll true :class "note-content-box" :width 500
+  (scroll :vscroll true :class "note-content-box" :width 450
     (label :class "note-content-label"
            :markup true 
            :wrap true
@@ -100,7 +100,7 @@
     :orientation "vertical"
     :valign "fill"
     :space-evenly false
-    :spacing 5       
+    :spacing 10      
     ;; Barra superior
   (notes_header)
   (notes_controls)

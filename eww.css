@@ -32,11 +32,11 @@ window {
 /*Nota por individual*/
 .note-item {
   color: black;
-  border-radius: 10px;
+  border-radius: 6px;
   background-color: #8cd5e6;
 }
 .note-item:hover {
-  background-color: #54c0d8;
+  background-color: #1bb9db;
 }
 
 /*Contenedor de la nota*/
@@ -54,43 +54,22 @@ window {
 
 /*Botones de control de nota*/
 .control-button {
-  background-color: #c1d0de;
+  background-color: #8cd5e6;
   color: rgb(58, 57, 57);
   padding: 4px 12px;
   min-height: 25px;
   border-radius: 6px;
+ 
   
 }
 .control-button:hover {
-  background-color: #98aec7;
- 
+  background-color: #1bb9db;
+
 }
 
-/*Boton de crear nueva nota*/
-.new-button {
-  background-color: #c1dec3;
-  color: rgb(58, 57, 57);
-  padding: 4px 12px;
-  min-height: 25px;
-  border-radius: 6px;
-}
-.new-button:hover {
-  background-color: #98c798;
-  
-}
 
-/*Boton de borrar  nota*/
-.delete-button {
-  background-color: #dec1c1;
-  color: rgb(58, 57, 57);
-  padding: 4px 12px;
-  min-height: 25px;
-  border-radius: 6px;
-}
-.delete-button:hover {
-  background-color: #c79898;
   
-}
+
 /*Contenido de la nota*/
 .note-content-label {
   color: #2e3440;
@@ -129,7 +108,7 @@ window {
   
 }
 .notes-scroll {
- background-color: #021f49;
+ background-color: #054071 ;
   padding: 25px;
   border-radius: 10px;
  
