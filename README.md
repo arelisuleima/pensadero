@@ -5,6 +5,7 @@
 A lightweight desktop notes widget built with EWW and Python. Organize thoughts
 like Dumbledore’s Pensieve—without the risk of spilled memories.
 
+
 ## Why?
 
 - Because _"The mind is not a book to be opened at will and examined at
@@ -15,3 +16,4 @@ like Dumbledore’s Pensieve—without the risk of spilled memories.
 
 - `EWW`.
 - `Python`.
+![alt text](image-1.png)
