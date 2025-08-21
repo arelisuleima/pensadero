@@ -50,11 +50,11 @@ Luego abre el widget
 eww open notes_window
 ```
 ## ¿Cómo funciona?
-- Frontend: EWW maneja la interfaz (lista de notas, botones, inputs).
+- Frontend: `EWW` maneja la interfaz (lista de notas, botones, inputs).
 
-- Backend: Python administra las operaciones de notas (crear, editar, eliminar, mostrar contenido).
+- Backend: `Python` administra las operaciones de notas (crear, editar, eliminar, mostrar contenido).
 
-- Almacenamiento: las notas se guardan en $XDG_CONFIG_HOME/pensadero/ para mayor portabilidad.
+- Almacenamiento: las notas se guardan en `$XDG_CONFIG_HOME/pensadero/` para mayor portabilidad.
 
 ## 🤝 Contribuciones
 Este widget fue diseñado para uso personal asi que ¡Las ideas y mejoras son bienvenidas!
