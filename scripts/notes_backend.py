@@ -18,31 +18,32 @@ def get_notes_list():
         notes_list = []
         for file in notes_files:
             filepath = os.path.join(NOTES_DIR, file)
-            # Título por defecto
+
+            # Título por defecto = nombre del archivo
             title = os.path.splitext(file)[0].replace('-', ' ').title()
-            
-            # Intentar leer la primera línea para encontrar el título con #
+
             with open(filepath, 'r', encoding='utf-8') as f:
                 first_line = f.readline().strip()
-                if first_line.startswith('#'):
-                    # Quita el #, espacios y saltos de línea
-                    title = first_line.lstrip('#').strip()
+                if first_line:  # si no está vacía
+                    if first_line.startswith("#"):
+                        title = first_line.lstrip("#").strip()
+                    else:
+                        title = first_line  # usa la primera línea tal cual
             
-            # Aplica la lógica de truncamiento al título
-            if len(title) > 15:
-                display_title = title[:15] + "..."
-            else:
-                display_title = title
-            
+            # Truncar título si es muy largo
+            display_title = title if len(title) <= 15 else title[:15] + "..."
+
             notes_list.append({
-                "title": display_title,  # Usa el título truncado para mostrar
-                "filename": file         # Usa el nombre de archivo completo para el onclick
+                "title": display_title,
+                "filename": file
             })
-            
+
         print(json.dumps(notes_list))
+    except Exception as e:
+        print(json.dumps({"error": str(e)}))
+
         
-    except FileNotFoundError:
-        print(json.dumps([]))
+  
 
 def get_note_content(filename=None):
     """Retorna el contenido de una nota como texto con formato Pango."""
