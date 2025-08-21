@@ -1,19 +1,61 @@
 # Pensadero
 
-<img src="logos/pensieve-logo-rmv.png" alt="Logo" width="100"/>
+<img src="logos/pensieve-logo-rmv.png" alt="Logo" width="120"/>
 
-A lightweight desktop notes widget built with EWW and Python. Organize thoughts
-like Dumbledore’s Pensieve—without the risk of spilled memories.
+Un **widget ligero de notas de escritorio** construido con **EWW** y **Python**.  
+"La mente no es un libro que pueda abrirse a voluntad y examinarse a placer"
+Pero tus notas, sí 😉
 
+---
 
-## Why?
+## 🌟 Características
 
-- Because _"The mind is not a book to be opened at will and examined at
-  leisure"_ (but your notes should be).
-- Works like a _pensieve_: dump thoughts, retrieve them later.
+- **Crear, editar y eliminar notas** directamente desde el widget.  
+- **Soporte para múltiples notas** — organiza tus ideas por separado.  
+- **Almacenamiento persistente** usando [XDG Base Directory](https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html), lo que facilita el respaldo.  
+- **Interfaz limpia y minimalista**, con lista de notas desplazable.  
+- **Ligero y rápido**, sin dependencias pesadas.  
 
-## Dependencies
+---
 
-- `EWW`.
-- `Python`.
-![alt text](image-1.png)
+## 📸 Capturas de pantalla
+
+### Interfaz principal
+<img src="logos/interfaz-1.png" alt="Interfaz" width="400"/>
+
+---
+
+## 🛠️ Instalación
+
+### Requisitos
+- [EWW](https://elkowar.github.io/eww/)  
+- Python 3.9+  
+- Linux (probado en OpenSUSE Tumbleweed, debería funcionar en la mayoría de distribuciones).  
+
+### Configuración
+Clona el repositorio y muévete a la carpeta del proyecto:
+
+```bash
+git clone https://github.com/tu-usuario/pensadero.git
+cd pensadero
+```
+
+Asegúrate de tener EWW instalado y en ejecución:
+```bash
+eww daemon
+```
+Luego abre el widget
+
+```bash
+eww open notes_window
+```
+## ¿Cómo funciona?
+- Frontend: EWW maneja la interfaz (lista de notas, botones, inputs).
+
+- Backend: Python administra las operaciones de notas (crear, editar, eliminar, mostrar contenido).
+
+- Almacenamiento: las notas se guardan en $XDG_CONFIG_HOME/pensadero/ para mayor portabilidad.
+
+## 🤝 Contribuciones
+Este widget fue diseñado para uso personal asi que ¡Las ideas y mejoras son bienvenidas!
+Abre un issue o envía un pull request.
