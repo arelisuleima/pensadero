@@ -64,7 +64,7 @@ def get_note_content(filename=None):
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
             # Convertimos Markdown a símbolos y respetamos saltos de línea en Pango
-            content = content.replace('[ ]', '☐').replace('-', '●')
+           # content = content.replace('[ ]', '☐').replace('-', '●')
             content_lines = content.splitlines()
             formatted_lines = []
 

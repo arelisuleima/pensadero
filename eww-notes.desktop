@@ -2,7 +2,7 @@
 Type=Application
 Name=Pensadero
 Comment=Widget de notas en EWW
-Exec=sh -c 'eww open notes_window'
+Exec=sh -c 'eww daemon; eww open notes_window'
 Icon=~/.config/eww/logos/pensieve-logo-rmv.png
 Terminal=false
 Categories=Utility;
