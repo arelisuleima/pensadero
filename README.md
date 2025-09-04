@@ -30,7 +30,7 @@ Pero tus notas, sí 😉
 ### Requisitos
 - [EWW](https://elkowar.github.io/eww/)  
 - Python 3.9+  
-- Linux (probado en OpenSUSE Tumbleweed, debería funcionar en la mayoría de distribuciones).  
+- Linux (probado en OpenSUSE Tumbleweed - Slowroll, debería funcionar en la mayoría de distribuciones).  
 
 ### Configuración
 Clona el repositorio y muévete a la carpeta del proyecto:
