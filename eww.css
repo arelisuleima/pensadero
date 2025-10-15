@@ -116,5 +116,19 @@ window {
  
 }
 
+/*Para el selector de color
+*/
+.color-btn {
+  border-radius: 50%;
+  min-width: 20px;
+  min-height: 20px;
+  margin: 2px;
+}
+
+.color-btn.red { background: #e9b183; }
+.color-btn.green { background: #5cd8ca; }
+.color-btn.blue { background: #9373cf; }
+.color-btn.yellow { background: #eb97d6; }
+
 
 /*# sourceMappingURL=eww.css.map */

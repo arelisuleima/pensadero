@@ -1,6 +1,6 @@
 # Pensadero
 
-<img src="logos/pensieve-logo-rmv.png" alt="Logo" width="120"/>
+<img src="widgets/pensadero/logos/pensieve-logo-rmv.png" alt="Logo" width="120"/>
 
 Un **widget ligero de notas de escritorio** construido con **EWW** y **Python**.  
 "La mente no es un libro que pueda abrirse a voluntad y examinarse a placer"
@@ -21,7 +21,7 @@ Pero tus notas, sí 😉
 ## 📸 Capturas de pantalla
 
 ### Interfaz principal
-<img src="logos/interfaz-1.png" alt="Interfaz" width="400"/>
+<img src="widgets/pensadero/logos/interfaz-1.png" alt="Interfaz" width="400"/>
 
 ---
 

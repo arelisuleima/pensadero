@@ -1,0 +1,146 @@
+;;=============================================================================
+;; Archivo de widget de notas: Pensadero 
+;;=============================================================================
+
+
+;; Variables de Eww (stateless data)
+(defpoll notes_json :interval "1s"
+                    :initial "[]"
+ `python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py list`)
+
+(defvar current_note_file "welcome.md")
+
+(defpoll notes_content_pango
+  :interval "1s"
+  :initial "[]"
+  "python3 /home/arelisuleima/.config/eww/scripts/notes_backend.py"
+)
+
+;;-----------------------------------------------------------------------------
+;; Widgets
+;;-----------------------------------------------------------------------------
+
+;; Barra superior (título + botón cerrar)
+(defwidget notes_header []
+  (box :orientation "h" 
+        :valign "start" 
+        :vexpand false  
+        :class "header-bar" 
+        :spacing 555
+        :space-evenly false 
+        
+
+       ;; título pegado a la izquierda
+  (label :text "📒 Pensadero" :class "titulo")
+
+       ;; botón pegado a la derecha
+       (button :class "close-button" 
+               :onclick "eww close notes_window" 
+               "X"
+              )
+  )
+)
+
+
+;; Botones principales
+(defwidget notes_controls []
+  (box :orientation "h" :spacing 20 :class "notes-controls"  :height 60 
+    (button :class "control-button"
+    
+            :onclick "eww update current_note_file=\"$(python3 ~/.config/eww/scripts/notes_backend.py new)\""
+            " ➕ Nueva")
+            
+     (button :class "control-button"
+            :onclick "kate ~/.config/eww/widgets/pensadero/notes/${current_note_file}"
+            " ✎ Editar")
+
+    (button :class "control-button"
+            :onclick "python3 ~/.config/eww/scripts/notes_backend.py delete '${current_note_file}' && eww update current_note_file='welcome.md'"
+            " ➖ Eliminar")
+             
+   
+             
+  )
+)
+
+
+
+;; Lista de notas
+(defwidget notes_list []
+  (scroll :vscroll true :class "notes-scroll" :width 230 
+  
+    (box :orientation "v"  :spacing 5   :class "notes-list"  :valign "start"   
+    (label :text "Mis notas" :class "header-bar" :wrap true )
+      (for note in notes_json
+        (button
+           :class "note-item"
+           :vexpand false 
+           :onclick "~/.config/eww/scripts/select_note.sh '${note.filename}'"
+           {note.title}
+           
+        )
+      )
+      
+    )
+  )
+)
+
+
+
+;; Contenido de la nota
+(defwidget note_content []
+  (scroll :vscroll true :class "note-content-box" :width 450
+    (label :class "note-content-label"
+           :markup true 
+           :wrap true
+           :text notes_content_pango
+          )
+          
+  )
+  
+)
+
+
+
+
+;;-----------------------------------------------------------------------------
+;; Widget principal
+;;-----------------------------------------------------------------------------
+
+(defwidget notes_widget []
+  (box 
+    :class "main-notes-box"  
+    :orientation "vertical"
+    :valign "fill"
+    :space-evenly false
+    :spacing 10      
+    ;; Barra superior
+  (notes_header)
+  (notes_controls)
+    
+    ;; Cuerpo dividido en 2 columnas
+    (box :orientation "h"  :spacing 20  :vexpand true  :space-evenly false 
+     
+      (notes_list )
+         
+      (note_content )
+      
+    )
+  )
+)
+
+;;-----------------------------------------------------------------------------
+;; Ventana
+;;-----------------------------------------------------------------------------
+
+(defwindow notes_window
+  :geometry (geometry
+    :x "5%"
+    :y "5%"
+   
+    :height 700
+  )
+  :stacking "fg"
+  :monitor 0
+  
+  (notes_widget))

@@ -8,7 +8,7 @@ import uuid
 
 # Usamos XDG_CONFIG_HOME para la portabilidad
 XDG_CONFIG_HOME = os.environ.get('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
-NOTES_DIR = os.path.join(XDG_CONFIG_HOME, 'eww/notes')
+NOTES_DIR = os.path.join(XDG_CONFIG_HOME, 'eww/widgets/pensadero/notes')
 CURRENT_FILE_PATH = os.path.join(XDG_CONFIG_HOME, 'eww/current_note_file.txt')
 
 def get_notes_list():
