@@ -1,0 +1,123 @@
+/* Paleta de colores ORIGINAL TUYA */
+/* Estructura básica (similar a la tuya) */
+* {
+  all: unset;
+}
+
+window {
+  background-color: rgba(0, 0, 0, 0);
+  color: #2e3440;
+}
+/*Barra encabezado*/
+.header-bar {
+  color: white;
+  font-size: 1.1em;
+  font-weight: bold;
+  background:linear-gradient(to right,#054071 ,  #1bb9db  );
+
+  border-radius: 6px;
+  padding: 5px 6px;
+}
+
+/*Widget principal en general eee2df*/
+.main-notes-box {
+  background-color: #e4eafa;
+
+  border-radius: 16px;
+  padding: 15px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  border-color: #2e3440;
+}
+
+/*Nota por individual*/
+.note-item {
+  color: black;
+  border-radius: 6px;
+  background-color: #8cd5e6;
+
+
+}
+.note-item:hover {
+  background-color: #1bb9db;
+}
+
+/*Contenedor de la nota*/
+.note-content-box {
+  background-color: #fce1aa;
+  padding: 25px;
+  border-radius: 10px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Controles (tus estilos con la paleta) */
+.notes-controls {
+  margin-bottom: 15px;
+}
+
+/*Botones de control de nota*/
+.control-button {
+  background-color: #8cd5e6;
+  color: rgb(58, 57, 57);
+  padding: 4px 12px;
+  min-height: 25px;
+  border-radius: 6px;
+ 
+  
+}
+.control-button:hover {
+  background-color: #1bb9db;
+
+}
+
+
+  
+
+/*Contenido de la nota*/
+.note-content-label {
+  color: #2e3440;
+  background-color:  #fce1aa ;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/*Botón de cerrar*/
+.close-button {
+  background: rgba(238, 113, 113, 0.8);
+  color: rgb(34, 24, 24);
+  border-radius: 30%;
+  padding: 2px 6px;
+  font-size: 14px;
+}
+
+.close-button:hover {
+  background: rgb(247, 77, 77);
+}
+
+.sidebar-title {
+  color: #555555;
+  font-size: 1.1em;
+  font-weight: bold;
+  padding: 0; /* Esto elimina el espacio interno */
+  margin: 0; /* Esto elimina el espacio externo */
+}
+
+.note-title {
+  font-weight: bold;
+  font-size: 1.5em; /* Opcional: para que se vea más grande */
+}
+
+.notes-list {
+  min-width: 180px;  /* ancho fijo mínimo */
+  
+}
+.notes-scroll {
+ background-color: #054071 ;
+  padding: 25px;
+  border-radius: 10px;
+ 
+}
+
+
+
+
+
+/*# sourceMappingURL=eww.css.map */
