@@ -2,3 +2,6 @@
 
 /* Importa estilos específicos de cada widget */
 @import "./widgets/pensadero/notes.css";
+/*Importa estilos de Pomodoro*/
+@import "./widgets/pomodoro/pomodoro.css";
+

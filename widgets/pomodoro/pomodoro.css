@@ -1,0 +1,94 @@
+/* ==============================
+   Estilos para el widget Pomodoro
+   ============================== */
+
+* {
+  all: unset;
+}
+
+/* Contenedor principal */
+.pomodoro-box {
+  background-color: #e4eafa;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  align-items: center;
+  justify-content: center;
+  spacing: 10px;
+}
+
+/* Tiempo (contador) */
+.pomodoro-time {
+  font-size: 36px;
+  font-weight: bold;
+  color: #054071;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 15px;
+}
+
+/* Barra de progreso */
+progressbar,
+progress {
+  min-width: 200px;
+  min-height: 20px;
+  border-radius: 10px;
+  background-color: #cfd8e3;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+progressbar trough,
+progress trough {
+  background-color: #cfd8e3;
+  border-radius: 10px;
+}
+
+/* Parte que avanza (relleno) */
+progressbar progress,
+progress progress {
+  background: linear-gradient(90deg, #1bb9db, #1b87db);
+  border-radius: 10px;
+  transition: all 0.5s ease;
+}
+
+/* Botones */
+button {
+  background-color: #8cd5e6;
+  color: #2e3440;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #1bb9db;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #0a6ea8;
+  transform: scale(0.98);
+}
+
+/* Estados del Pomodoro */
+.pomodoro-work .progress-bar progress {
+  background: linear-gradient(90deg, #1bb9db, #1b87db);
+}
+
+.pomodoro-break .progress-bar progress {
+  background: linear-gradient(90deg, #7ed957, #52a832);
+}
+
+/* Animación visual de "progreso" */
+@keyframes pulse {
+  0% { box-shadow: 0 0 5px #1bb9db; }
+  50% { box-shadow: 0 0 15px #1bb9db; }
+  100% { box-shadow: 0 0 5px #1bb9db; }
+}
+
+.progress-bar {
+  animation: pulse 2s infinite;
+}
+
