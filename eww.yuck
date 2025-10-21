@@ -5,5 +5,4 @@
 ;; Importa widgets individuales
 (include "./widgets/pensadero/notes.yuck")
 
-;;Importa pomodoro
-(include "./widgets/pomodoro/pomodoro.yuck")
+
